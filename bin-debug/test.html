@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<title>README: JW Player</title>
+<script type="text/javascript" src="./jwplayer.js" charset="utf-8"></script>
+</head>
+<body>
+<div ><a href="javascript:refreshVideo()">刷新</a></div>
+    <div id="videoid"></div>
+    <script type="text/javascript">
+    var thePlayer, previewRefeshPositon, position;
+    playVideo();
+    /**
+     * 刷新
+     */
+    function refreshVideo(){
+    	//alert(thePlayer.getDuration());
+    	previewRefeshPositon = thePlayer.getPosition();
+    	playVideo();
+    }
+    function playVideo(tposition) {
+    	
+    	if(thePlayer) {
+    		position = thePlayer.getPosition();
+    		if(position > thePlayer.getDuration()){
+    			position = thePlayer.getDuration();
+    		}
+    	}
+    	
+    	thePlayer = jwplayer("videoid").setup({
+            file: "http://192.168.10.198:8080/cms1/test1470709117516-cd535c2d-1857-4dae-8cfe-b9c37dc54ac4.flv",
+            //file: "http://127.0.0.1:8080/cms1/test.mp4",
+            //file:"rtmp://192.168.10.126/vod/flv:2016-8-12/test1470985153217-af4ed722-02c4-4d09-9060-f65d48238046.flv",
+           // width: 600,
+            //height: 600,
+            logo : {
+            	prefix : "../",
+				file : "logo.png",
+				margin : 10
+			},
+            primary: "flash"
+        });
+    	if(tposition > 0){
+    		thePlayer.seek(tposition);
+    	}else if(position > 0){
+    		thePlayer.seek(position);
+    	}
+    }
+    
+    
+        
+        function sysout(msg) {
+        	if(msg != undefined && msg.indexOf("Logo") > -1){
+        		console.log(msg);
+        	}
+        	
+        }
+    </script>
+</body>
+</html>
