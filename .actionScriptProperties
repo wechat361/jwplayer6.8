@@ -32,9 +32,7 @@
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
-  <applications>
-    <application path="com/longtailvideo/jwplayer/player/Player.as"/>
-  </applications>
+  <applications/>
   <modules/>
   <workers/>
   <buildCSSFiles/>

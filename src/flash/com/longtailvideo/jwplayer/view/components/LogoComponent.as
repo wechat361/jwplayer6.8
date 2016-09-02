@@ -30,6 +30,8 @@ package com.longtailvideo.jwplayer.view.components {
 			margin: 8, 
 			hide: false,
 			timeout: 5,
+			out: 0.5, 
+			over: 1,
 			position: "top-right"
 		}
 		/** Seconds after fading in to hide logo again **/

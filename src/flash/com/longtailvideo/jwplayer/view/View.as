@@ -605,18 +605,14 @@ package com.longtailvideo.jwplayer.view {
 
 
 		protected function mediaLoaded(evt:MediaEvent):void {
-			Logger.log("Logo View mediaLoaded ----- ");
+			//Logger.log("Logo mediaLoaded ----- ");
 			var disp:DisplayObject = _model.media.display;
-			Logger.log("Logo View mediaLoaded disp = " + disp + ";" +
-				" disp.parent != _mediaLayer ? " + (disp.parent != _mediaLayer));
 			if (!disp || disp.parent != _mediaLayer) {
 				while (_mediaLayer.numChildren) {
 					_mediaLayer.removeChildAt(0);
 				}
 				if (disp) {
 					_mediaLayer.addChild(disp);
-					Logger.log("Logo View mediaLoaded disp _player.config.width = " + (_player.config.width) + ";" +
-						" _player.config.width = " + (_player.config.width));
 					resizeMedia(_player.config.width, _player.config.height);					
 				}
 			}
