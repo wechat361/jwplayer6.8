@@ -64,7 +64,10 @@
 		};
 		
 		_this.getDuration = function() {
-			return _callInternal('jwGetDuration');
+			//console.log("------------------jwplayer.api------getDuration----start--");
+			var du = _callInternal('jwGetDuration');
+			//console.log("------------------jwplayer.api------getDuration----end--"+du);
+			return du;
 		};
 		_this.getFullscreen = function() {
 			return _callInternal('jwGetFullscreen');
@@ -203,6 +206,7 @@
 			return _this;
 		};
 		_this.setDuration = function(duration) {
+			console.log("-------jwplayer.api-----setDuration---");
 			_callInternal("jwSetDuration", duration);
 			return _this;
 		}
@@ -465,6 +469,9 @@
 				if (_player) {
 					var args = Array.prototype.slice.call(arguments, 0),
 						funcName = args.shift();
+					//console.log("jwplayer.api----_callInternal----args--"+JSON.stringify(args)+"");
+					//console.log("jwplayer.api----_callInternal----funcName--"+JSON.stringify(funcName)+"");
+					//console.log("jwplayer.api----_callInternal----_player--"+JSON.stringify(_player)+"");
 					if (typeof _player[funcName] === 'function') {
 						// Can't use apply here -- Flash's externalinterface doesn't like it.
 						//return func.apply(player, args);
@@ -476,8 +483,8 @@
 							case 2:  return _player[funcName](args[0], args[1]);
 							case 1:  return _player[funcName](args[0]);
 						}
-						console.log("jwplayer.api----_callInternal----funcName--"+JSON.stringify(funcName)+"");
-						console.log("jwplayer.api----_callInternal----_player[funcName]()--"+JSON.stringify(_player[funcName]())+"");
+						
+						//console.log("jwplayer.api----_callInternal----_player[funcName]--"+_player[funcName]+"");
 						return _player[funcName]();
 					}
 				}

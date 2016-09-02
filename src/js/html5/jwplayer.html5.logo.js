@@ -86,7 +86,7 @@
 				var logoTouch = new utils.touch(_logo);
 				logoTouch.addEventListener(utils.touchEvents.TAP, _clickHandler);
 			}
-			console.log("_settings.timeout = " + (_settings.timeout));
+			//console.log("_settings.timeout = " + (_settings.timeout));
 			
 		}
 		

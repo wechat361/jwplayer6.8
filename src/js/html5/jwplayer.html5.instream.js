@@ -300,7 +300,11 @@
         };
         
         _this.jwInstreamSetDuration = function(duration) {
-        	_provider
+        	_provider.setDuration(duration);
+        }
+        
+        _this.jwInstreamGetDuration = function() {
+        	return _provider.getDuration();
         }
         
         /** Set custom text in the controlbar **/
@@ -448,8 +452,8 @@
         };
 
         _this.jwSeek = function(position) {
-        	console.log("jwplayer.html5.instream------_this.jwSeek---position----"+position);
-        	console.log("jwplayer.html5.instream------_this.jwSeek---_options.controlbarseekable.toLowerCase()----"+_options.controlbarseekable.toLowerCase());
+        	//console.log("jwplayer.html5.instream------_this.jwSeek---position----"+position);
+        	//console.log("jwplayer.html5.instream------_this.jwSeek---_options.controlbarseekable.toLowerCase()----"+_options.controlbarseekable.toLowerCase());
             switch(_options.controlbarseekable.toLowerCase()) {
             case "never":
                 return;
@@ -467,9 +471,15 @@
         _this.jwSeekDrag = function(state) { _fakemodel.seekDrag(state); };
         
         _this.jwGetPosition = function() {};
-        _this.jwGetDuration = function() {};
+        _this.jwGetDuration = function() {
+        	//console.log("-------jwplayer.html5.instream-----jwGetDuration--start-");
+        	var thisDu = _this.jwInstreamGetDuration();
+        	//console.log("-------jwplayer.html5.instream-----jwGetDuration--end-"+thisDu);
+        	return thisDu;
+        };
         _this.jwSetDuration = function(duration) {
-        	_this.setDuration(duration);
+        	//console.log("-------jwplayer.html5.instream-----setDuration---");
+        	_this.jwInstreamSetDuration(duration);
         }
         _this.jwGetWidth = _api.jwGetWidth;
         _this.jwGetHeight = _api.jwGetHeight;

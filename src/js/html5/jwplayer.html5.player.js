@@ -109,6 +109,7 @@
 			_this.jwStop = _controller.stop;
 			_this.jwSeek = _controller.seek;
 			_this.jwSetDuration = _controller.setDuration;
+			_this.jwGetDuration = _controller.getDuration;
 			_this.jwSetVolume = _controller.setVolume;
 			_this.jwSetMute = _controller.setMute;
 			_this.jwLoad =  function(item) {
@@ -134,7 +135,7 @@
 			
 			_this.jwGetPlaylistIndex = _statevarFactory('item');
 			_this.jwGetPosition = _statevarFactory('position');
-			_this.jwGetDuration = _statevarFactory('duration');
+			//_this.jwGetDuration = _statevarFactory('duration');
 			_this.jwGetBuffer = _statevarFactory('buffer');
 			_this.jwGetWidth = _statevarFactory('width');
 			_this.jwGetHeight = _statevarFactory('height');
@@ -227,12 +228,12 @@
 			};
 
 			_this.jwPlayerDestroy = function() {
-				console.log("jwplayer.html5.player------_this.jwPlayerDestroy---------1");
+				//console.log("jwplayer.html5.player------_this.jwPlayerDestroy---------1");
 				if (_view) {
-					console.log("jwplayer.html5.player------_this.jwPlayerDestroy---------2");
+					//console.log("jwplayer.html5.player------_this.jwPlayerDestroy---------2");
 					_view.destroy();
 				}
-				console.log("jwplayer.html5.player------_this.jwPlayerDestroy---------3");
+				//console.log("jwplayer.html5.player------_this.jwPlayerDestroy---------3");
 			};
 			
 			_this.jwInstreamSetText = function(text) {
@@ -261,10 +262,25 @@
 		}
 
 		/** Getters **/
-		
+		var durCount = 0;
 		function _statevarFactory(statevar) {
 			return function() {
 				return _model[statevar];
+//				if(statevar == 'duration'){
+//					var aa = window.setInterval(function(){
+//						//console.log("jwplayer.html5.player-----durCount = " + durCount );
+//						//console.log("jwplayer.html5.player-----_model["+statevar+"] = " +_model[statevar] );
+//						if(durCount > 20 || _model[statevar] > 1){
+//							durCount = 0;
+//							window.clearInterval(aa);
+//							return _model[statevar];
+//						}else{
+//							durCount++;
+//						}
+//					}, 100);
+//				}else{
+//					
+//				}
 			};
 		}
 		

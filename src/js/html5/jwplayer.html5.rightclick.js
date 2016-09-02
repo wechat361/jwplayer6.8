@@ -5,7 +5,6 @@
  * @version 6.0
  */
 (function(html5) {
-console.log("0-----------------"+"关于视联动力 ");
 	var utils = jwplayer.utils,
 		_css = utils.css,
 

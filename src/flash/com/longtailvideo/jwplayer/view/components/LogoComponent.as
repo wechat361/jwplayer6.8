@@ -29,7 +29,7 @@ package com.longtailvideo.jwplayer.view.components {
 			linktarget: "_blank",
 			margin: 8, 
 			hide: false,
-			timeout: 5,
+			timeout: 10,
 			out: 0.5, 
 			over: 1,
 			position: "top-right"
@@ -211,7 +211,9 @@ package com.longtailvideo.jwplayer.view.components {
 			_showing = true;
 			alpha = 0;
 			animations.fade(getConfigParam('out'), 0.25);
-			timeout = setTimeout(hideLogo, parseInt(getConfigParam('timeout')) * 1000);
+			if(parseInt(getConfigParam('timeout')) > 0){
+				timeout = setTimeout(hideLogo, parseInt(getConfigParam('timeout')) * 1000);
+			}
 			mouseEnabled = true;
 		}
 		

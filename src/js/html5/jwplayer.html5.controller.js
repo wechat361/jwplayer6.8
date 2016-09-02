@@ -206,8 +206,16 @@
 		}
 		
 		function _setDuration(duration) {
+			//console.log("-------jwplayer.html5.controller-----setDuration---");
 			//console.log("jwplayer.html5.controller----_setDuration--1--duration = " + duration);
 			_video().setDuration(duration);
+		}
+		
+		function _getDuration() {
+			//console.log("-------jwplayer.html5.controller-----getDuration---start---");
+			var du = _video().getDuration();
+			//console.log("-------jwplayer.html5.controller-----getDuration---end---"+du);
+			return du;
 		}
 		
 		function _setFullscreen(state) {
@@ -304,7 +312,8 @@
 		function _waitForReady(func) {
 			return function() {
 				if (_ready) {
-					_callMethod(func, arguments);
+					// TODO 添加return  20160902
+					return _callMethod(func, arguments);
 				} else {
 					_queuedCalls.push({ method: func, arguments: arguments});
 				}
@@ -316,7 +325,8 @@
 			for (i=0; i < args.length; i++) {
 				_args.push(args[i]);
 			}
-			func.apply(this, _args);
+			// TODO 添加return  20160902
+			return func.apply(this, _args);
 		}
 
 		/** Controller API / public methods **/
@@ -324,6 +334,7 @@
 		this.pause = _waitForReady(_pause);
 		this.seek = _waitForReady(_seek);
 		this.setDuration = _waitForReady(_setDuration);
+		this.getDuration = _waitForReady(_getDuration);
 		this.stop = function() {
 			// Something has called stop() in an onComplete handler
 			_stopPlaylist = TRUE;

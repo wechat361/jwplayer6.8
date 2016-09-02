@@ -672,14 +672,15 @@
 
 		function _showLogo() {
 			if (_logo && !_audioMode && isAllowLogoDisplay) {
-				_logo.show(); 
-				console.log("_logo.timeout = " + (_logo.timeout()));
-				window.setTimeout(function(){
-					console.log("_showLogo setTimeout start");
-					_logo.hide(true);
-					isAllowLogoDisplay = false;
-					console.log("_showLogo setTimeout end");
-				}, _logo.timeout() * 1000);
+				_logo.show();
+				if(_logo.timeout() > 0){
+					window.setTimeout(function(){
+						//console.log("_showLogo setTimeout start");
+						_logo.hide(true);
+						isAllowLogoDisplay = false;
+						//console.log("_showLogo setTimeout end");
+					}, _logo.timeout() * 1000);
+				}
 			}
 		}
 		function _hideLogo() {
@@ -967,7 +968,7 @@
 		};
 
 		this.destroy = function () {
-			console.log("jwplayer.html5.view-------this.destroy----1");
+			//console.log("jwplayer.html5.view-------this.destroy----1");
 			DOCUMENT.removeEventListener('webkitfullscreenchange', _fullscreenChangeHandler, FALSE);
 			DOCUMENT.removeEventListener('mozfullscreenchange', _fullscreenChangeHandler, FALSE);
 			DOCUMENT.removeEventListener('MSFullscreenChange', _fullscreenChangeHandler, FALSE);
@@ -977,7 +978,7 @@
 			if (_rightClickMenu) {
 				_rightClickMenu.destroy();
 			}
-			console.log("jwplayer.html5.view-------this.destroy----2");
+			//console.log("jwplayer.html5.view-------this.destroy----2");
 		};
 
 		_init();

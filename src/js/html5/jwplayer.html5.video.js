@@ -135,7 +135,7 @@
         }
 
         function _durationUpdateHandler(evt) {
-        	console.log("jwplayer.html5.video-----_durationUpdateHandler-----_videotag----"+JSON.stringify(_videotag));
+        	//console.log("jwplayer.html5.video-----_durationUpdateHandler-----_videotag----"+JSON.stringify(_videotag));
             _generalHandler(evt);
             if (!_attached) return;
             var newDuration = _round(_videotag.duration);
@@ -350,16 +350,16 @@
         };
         
         var _seek = _this.seek = function(seekPos) {
-        	console.log("jwplayer.html5.video-----seek----_attached---"+JSON.stringify(_attached));
+        	//console.log("jwplayer.html5.video-----seek----_attached---"+JSON.stringify(_attached));
             if (!_attached) return; 
-            console.log("jwplayer.html5.video-----seek----!_dragging && _delayedSeek == 0---"+(!_dragging && _delayedSeek == 0));
+            //console.log("jwplayer.html5.video-----seek----!_dragging && _delayedSeek == 0---"+(!_dragging && _delayedSeek == 0));
             if (!_dragging && _delayedSeek == 0) {
                 _sendEvent(events.JWPLAYER_MEDIA_SEEK, {
                     position: _position,
                     offset: seekPos
                 });
             }
-            console.log("jwplayer.html5.video-----seek----_canSeek---"+(_canSeek));
+            //console.log("jwplayer.html5.video-----seek----_canSeek---"+(_canSeek));
             if (_canSeek) {
                 _delayedSeek = 0;
                 _videotag.currentTime = seekPos;
@@ -370,11 +370,26 @@
         };
         
         var _setDuration = _this.setDuration = function(duration) {
+        	//console.log("-------jwplayer.html5.video----setDuration----");
         	//console.log("jwplayer.html5.video----_setDuration--2--duration = " + duration);
         	if(duration > 0){
         		//_videotag.duration = duration;
         		_duration = duration;
         	}
+        }
+        var duCount = 0;
+        var _getDuration = _this.getDuration = function() {
+        	//console.log("-------jwplayer.html5.video----getDuration----start---_duration--"+_duration);
+        	return _duration;
+//        	while(true) {
+//        		console.log("-------jwplayer.html5.video----getDuration--_duration--"+_duration+"--duCount---"+duCount);
+//        		if(duCount > 40 || _duration > 1){
+//        			duCount = 0;
+//        			window.clearInterval(aa);
+//        			return _duration;
+//        		}
+//        		duCount++;
+//        	}
         }
         
         function _sendSeekEvent(evt) {
