@@ -33,3 +33,4 @@ If you're using Flash Builder, you may use the following method to build the Fla
 13. Make sure "Player.as" is selected as the application, and click "Finish"
 14. The flash component will be compiled as bin-release/Player.swf.
 
+da'f'j'd'k'l'j'd'sa'l打飞机的快乐觉得撒了
