@@ -32,3 +32,6 @@ If you're using Flash Builder, you may use the following method to build the Fla
 12. Under the "Project" menu, choose "Export Release Build".
 13. Make sure "Player.as" is selected as the application, and click "Finish"
 14. The flash component will be compiled as bin-release/Player.swf.
+
+
+testtest     test
