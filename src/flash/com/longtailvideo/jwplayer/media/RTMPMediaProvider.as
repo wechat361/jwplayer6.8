@@ -18,6 +18,7 @@
     import flash.events.IOErrorEvent;
     import flash.events.NetStatusEvent;
     import flash.events.SecurityErrorEvent;
+    import flash.external.ExternalInterface;
     import flash.geom.Rectangle;
     import flash.media.SoundTransform;
     import flash.media.Video;
@@ -70,6 +71,8 @@
 		
 		public static var LAST_DURATION:Number = 0;
 		
+		private var _cfg:PlayerConfig;
+		
 		/** Initialize RTMP provider. **/
 		public function RTMPMediaProvider(stageVideoEnabled:Boolean=true) {
 			_stageEnabled = stageVideoEnabled;
@@ -81,6 +84,7 @@
 
 		/** Constructor; sets up the connection and loader. **/
 		public override function initializeMediaProvider(cfg:PlayerConfig):void {
+			this._cfg = cfg;
 			super.initializeMediaProvider(cfg);
 			
 			// Allow stagevideo to be disabled by user config
@@ -98,6 +102,28 @@
 			_loader.addEventListener(ErrorEvent.ERROR, loaderError);
 			_transformer = new SoundTransform();
 		}
+		
+//		/**
+//		 * 重新初始化
+//		 */
+//		private function initializeMediaProvider1(cfg:PlayerConfig):void {
+//			super.initializeMediaProvider(cfg);
+//			
+//			// Allow stagevideo to be disabled by user config
+//			if (_stageEnabled && cfg.hasOwnProperty('stagevideo') && cfg['stagevideo'].toString() == "false") _stageEnabled = false;
+//			
+//			_connection = new NetConnection();
+//			_connection.addEventListener(NetStatusEvent.NET_STATUS, statusHandler);
+//			_connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, errorHandler);
+//			_connection.addEventListener(IOErrorEvent.IO_ERROR, errorHandler);
+//			_connection.addEventListener(AsyncErrorEvent.ASYNC_ERROR, errorHandler);
+//			_connection.objectEncoding = ObjectEncoding.AMF0;
+//			_connection.client = new NetClient(this);
+//			_loader = new AssetLoader();
+//			_loader.addEventListener(Event.COMPLETE, loaderComplete);
+//			_loader.addEventListener(ErrorEvent.ERROR, loaderError);
+//			_transformer = new SoundTransform();
+//		}
 
 
 		/** Catch security errors. **/
@@ -443,6 +469,18 @@
 		/** Seek to a new position, only when duration is found. **/
 		override public function seek(pos:Number):void {
 			if(_item.duration > 0) {
+				// 解决播放器在播放完视频的瞬间，点击进度条时，播放事件正常更新，但没有视频画面的问题   start
+				var result:Boolean = ExternalInterface.call("isVideoEnd", pos);
+				if(result) {
+					play();
+					ExternalInterface.call("videoReplay", pos);
+//					Logger.log("Logo RTMPMediaProvider seek isVideoEnd pos = " + pos);
+//					initializeMediaProvider1(this._cfg);
+//					setStream();
+//					_stream.seek(pos);
+					return;
+				}
+				// 解决播放器在播放完视频的瞬间，点击进度条时，播放事件正常更新，但没有视频画面的问题   end
 				if(state != PlayerState.PLAYING) {
 					play();
 				}

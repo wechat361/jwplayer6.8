@@ -19,6 +19,7 @@ package com.longtailvideo.jwplayer.view {
 	import com.longtailvideo.jwplayer.utils.Logger;
 	import com.longtailvideo.jwplayer.utils.RootReference;
 	import com.longtailvideo.jwplayer.utils.Stretcher;
+	import com.longtailvideo.jwplayer.view.components.ComponentButton;
 	import com.longtailvideo.jwplayer.view.components.ControlbarComponent;
 	import com.longtailvideo.jwplayer.view.components.DockComponent;
 	import com.longtailvideo.jwplayer.view.components.LogoComponent;
@@ -109,6 +110,8 @@ package com.longtailvideo.jwplayer.view {
 		
 		// Timeout for fading controls
 		private var _fadingOut:uint;
+		
+		private var _isStopTimer:Timer;
 		
 		// Set to true during the player's completed state
 		private var _completeState:Boolean;
@@ -764,6 +767,7 @@ package com.longtailvideo.jwplayer.view {
 			fullscreen(false);
 			if (_model.config.controls && !audioMode) {
 				_components.dock.show();
+				_components.controlbar.hide();
 			}
 			//showControls();
 			//Mouse.show();
@@ -876,6 +880,18 @@ package com.longtailvideo.jwplayer.view {
 				_components.dock.hide();
 				//_components.logo.hide(true);
 			}
+			if(_isStopTimer != null) {
+				_isStopTimer.stop();
+			}
+		}
+		
+		private function hideControls2():void {
+			_preventFade = false;
+			_components.controlbar.hide(true);
+			_components.dock.hide(true);
+			if(_isStopTimer != null) {
+				_isStopTimer.stop();
+			}
 		}
 		
 		private function showControls():void {
@@ -890,7 +906,15 @@ package com.longtailvideo.jwplayer.view {
 				//_components.logo.show()
 				//Logger.log("Logo View.as 862 _components.logo.show() end");
 			};*/
+			// 新增，如果视频播放完毕，强制隐藏进度条
+//			if(_isStopTimer != null) {
+//				_isStopTimer.stop();	
+//			}
+//			_isStopTimer = new Timer(50);
+//			_isStopTimer.addEventListener(TimerEvent.TIMER, checkPlay);//为此事件添加侦听
+//			_isStopTimer.start();
 		}
+		
 		
 		/** If the mouse leaves the stage, hide the controlbar if position is 'over' **/
 		private function startFader():void {
@@ -898,7 +922,22 @@ package com.longtailvideo.jwplayer.view {
 			if (!isNaN(_fadingOut)) {
 				clearTimeout(_fadingOut);
 			}
+			
 			_fadingOut = setTimeout(moveTimeout, 2000);
+		}
+		
+		private function checkPlay(evt:Event=null):void {
+			Logger.log("Logo View.as checkPlay PlayerState = " + _player.state);
+			if(_player.state == PlayerState.IDLE ) {
+				Mouse.hide();
+				hideControls2();
+				components.dock.hide(true);
+				components.controlbar.hideFullscreen(false);
+				_isStopTimer.stop();
+				//imageDelay.start();
+			}
+			//if (_player.state == PlayerState.PLAYING) Mouse.hide();
+			//if (_player.state != PlayerState.PAUSED) hideControls();
 		}
 		
 		private function stopFader():void {

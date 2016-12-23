@@ -432,6 +432,7 @@ package com.longtailvideo.jwplayer.view.components {
 							}else {
 								positionCount++;
 							}
+														
 							if(positionCount > 100){
 								prevPosition = 0;
 								positionCount = 0;
